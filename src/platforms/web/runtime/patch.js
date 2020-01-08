@@ -9,4 +9,5 @@ import platformModules from 'web/runtime/modules/index'
 // built-in modules have been applied.
 const modules = platformModules.concat(baseModules)
 
+// 利用函数柯里化，在执行 patch 函数之前，把平台差异化已经抹平了
 export const patch: Function = createPatchFunction({ nodeOps, modules })

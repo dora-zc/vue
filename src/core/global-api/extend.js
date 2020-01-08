@@ -16,9 +16,11 @@ export function initExtend (Vue: GlobalAPI) {
   /**
    * Class inheritance
    */
+  // extend 用原型继承的方式，返回一个子构造器
   Vue.extend = function (extendOptions: Object): Function {
     extendOptions = extendOptions || {}
     const Super = this
+    // SuperId 相同，说明它们是同一个父构造器继承而来的，因此直接返回缓存中的构造器就可以，不用重新初始化一遍构造器
     const SuperId = Super.cid
     const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {})
     if (cachedCtors[SuperId]) {
@@ -53,6 +55,7 @@ export function initExtend (Vue: GlobalAPI) {
     }
 
     // allow further extension/mixin/plugin usage
+    // 把全局的静态方法赋值给 Sub，目的是让 Sub 拥有和 Vue 一样的功能
     Sub.extend = Super.extend
     Sub.mixin = Super.mixin
     Sub.use = Super.use
